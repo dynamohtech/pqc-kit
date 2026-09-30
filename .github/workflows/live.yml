@@ -45,12 +45,14 @@ jobs:
           pqc-kit scan "$(go env GOROOT)/src/crypto" --format json -o go-crypto.json
           pqc-kit scan "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" --format json -o site-packages.json
           pqc-kit cbom "$(go env GOROOT)/src/crypto" -o go-crypto.cdx.json
+          pqc-kit cbom "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" -o site-packages.cdx.json
           python - <<'PY'
           import json
           from cyclonedx.schema import SchemaVersion
           from cyclonedx.validation.json import JsonStrictValidator
-          errors = JsonStrictValidator(SchemaVersion.V1_6).validate_str(open("go-crypto.cdx.json").read())
-          assert errors is None, errors
+          for name in ("go-crypto.cdx.json", "site-packages.cdx.json"):
+              errors = JsonStrictValidator(SchemaVersion.V1_6).validate_str(open(name).read())
+              assert errors is None, f"{name}: {errors}"
           for name in ("go-crypto.json", "site-packages.json"):
               data = json.load(open(name))
               print(f"{name}: {len(data['findings'])} findings in {data['files_scanned']} files")

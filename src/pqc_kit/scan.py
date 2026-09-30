@@ -170,11 +170,11 @@ def _certificate(f: Finding, now: datetime) -> None:
     except (KeyError, ValueError):
         return
     if not_after < now:
-        add_note(f, f"Expired on {not_after:%Y-%m-%d}.")
+        add_note(f, f"Expired on {not_after.date().isoformat()}.")
     elif f.status in ("quantum-vulnerable", "weak"):
         if f.classical_bits == 112 and not_after >= NIST_2030:
-            add_note(f, f"Valid until {not_after:%Y-%m-%d}, past the end of 2030 when NIST (draft IR 8547) "
+            add_note(f, f"Valid until {not_after.date().isoformat()}, past the end of 2030 when NIST (draft IR 8547) "
                            "deprecates 112-bit keys.")
         elif not_after >= NIST_2035:
-            add_note(f, f"Valid until {not_after:%Y-%m-%d}, past the end of 2035 when NIST (draft IR 8547) "
+            add_note(f, f"Valid until {not_after.date().isoformat()}, past the end of 2035 when NIST (draft IR 8547) "
                            "disallows quantum-vulnerable algorithms.")

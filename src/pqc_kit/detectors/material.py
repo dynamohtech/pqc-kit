@@ -23,6 +23,13 @@ KEYSTORE_EXTENSIONS = {".p12": "PKCS#12", ".pfx": "PKCS#12", ".jks": "Java KeySt
 WEAK_PROTECTION = {"DES", "3DES", "RC2", "RC4"}
 
 
+
+def iso_utc(when) -> str:
+    """ISO 8601 UTC time with a four-digit year (strftime drops the leading zeros of years before 1000 on Linux,
+    and certificates in the wild do use dates such as 0001-01-01)."""
+    return (f"{when.year:04d}-{when.month:02d}-{when.day:02d}T"
+            f"{when.hour:02d}:{when.minute:02d}:{when.second:02d}Z")
+
 def _clean_base64(body: str) -> bytes:
     # PEM pasted into source code: drop string concatenation ("..." + "...") and escaped newlines.
     body = re.sub(r"[\"'`]\s*\+\s*(?:\\n)?\s*[\"'`]", "", body)
@@ -89,8 +96,8 @@ class _Material:
             "subject": cert.subject,
             "issuer": cert.issuer,
             "common_name": pkix.common_name(cert.subject),
-            "not_before": cert.not_before.strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "not_after": cert.not_after.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "not_before": iso_utc(cert.not_before),
+            "not_after": iso_utc(cert.not_after),
             "serial": cert.serial,
             "sha256": cert.sha256,
             "is_ca": cert.is_ca,

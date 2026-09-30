@@ -88,3 +88,22 @@ def test_output_is_deterministic():
     a = build_cbom(scan_path(SAMPLE), "sample-app", **FIXED)
     b = build_cbom(scan_path(SAMPLE), "sample-app", **FIXED)
     assert json.dumps(a) == json.dumps(b)
+
+
+def test_certificate_dates_before_year_1000_keep_four_digits():
+    # Real-world test certificates use validity dates such as 0001-01-01 (found in Go's crypto tests).
+    from pqc_kit.detectors.material import iso_utc
+
+    assert iso_utc(datetime(1, 1, 1)) == "0001-01-01T00:00:00Z"
+    result = scan_path(SAMPLE)
+    cert = next(f for f in result.findings if f.asset == "certificate")
+    cert.details["not_before"] = iso_utc(datetime(1, 1, 1))
+    bom = build_cbom(result, "sample-app", **FIXED)
+    dates = [c["cryptoProperties"]["certificateProperties"]["notValidBefore"] for c in bom["components"]
+             if c["cryptoProperties"]["assetType"] == "certificate"]
+    assert "0001-01-01T00:00:00Z" in dates
+    pytest.importorskip("cyclonedx.validation.json")
+    from cyclonedx.schema import SchemaVersion
+    from cyclonedx.validation.json import JsonStrictValidator
+
+    assert JsonStrictValidator(SchemaVersion.V1_6).validate_str(json.dumps(bom)) is None
