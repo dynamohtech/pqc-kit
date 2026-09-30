@@ -1,0 +1,3169 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000000",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-30T12:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "pqc-kit",
+          "version": "0.1.0",
+          "externalReferences": [
+            {
+              "type": "vcs",
+              "url": "https://github.com/dynamohtech/pqc-kit"
+            }
+          ]
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "root-component",
+      "name": "Example Payments Platform",
+      "version": "1.0.0"
+    },
+    "properties": [
+      {
+        "name": "pqc-kit:summary:weak",
+        "value": "19"
+      },
+      {
+        "name": "pqc-kit:summary:quantum-vulnerable",
+        "value": "30"
+      },
+      {
+        "name": "pqc-kit:summary:retiring",
+        "value": "2"
+      },
+      {
+        "name": "pqc-kit:summary:unknown",
+        "value": "0"
+      },
+      {
+        "name": "pqc-kit:summary:ok",
+        "value": "12"
+      },
+      {
+        "name": "pqc-kit:summary:quantum-safe",
+        "value": "7"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/3des-cbc",
+      "name": "3DES-CBC",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "block-cipher",
+          "mode": "cbc",
+          "classicalSecurityLevel": 112,
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 72,
+            "offset": 12,
+            "symbol": "DES3.new",
+            "additionalContext": "python"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 27,
+            "offset": 17,
+            "symbol": "createCipheriv('des-ede3-cbc')",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "NIST disallows Triple DES for encryption after 2023 (SP 800-131A Rev. 2); its 64-bit block is exposed to birthday attacks (Sweet32)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/aes-256",
+      "name": "AES-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "block-cipher",
+          "parameterSetIdentifier": "256",
+          "classicalSecurityLevel": 256,
+          "nistQuantumSecurityLevel": 5,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 58,
+            "offset": 27,
+            "symbol": "KeyGenerator.getInstance(\"AES\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric cipher; NIST considers AES-128 and larger adequate against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "approved"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/aes-256-gcm",
+      "name": "AES-256-GCM",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "ae",
+          "parameterSetIdentifier": "256",
+          "mode": "gcm",
+          "classicalSecurityLevel": 256,
+          "nistQuantumSecurityLevel": 5,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 67,
+            "offset": 11,
+            "symbol": "AESGCM.generate_key",
+            "additionalContext": "python"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 22,
+            "offset": 20,
+            "symbol": "createCipheriv('aes-256-gcm')",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric cipher; NIST considers AES-128 and larger adequate against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "approved"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/aes-cbc",
+      "name": "AES-CBC",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "block-cipher",
+          "mode": "cbc",
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 58,
+            "offset": 11,
+            "symbol": "Cipher",
+            "additionalContext": "python"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric cipher; NIST considers AES-128 and larger adequate against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "check"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/aes-ecb",
+      "name": "AES-ECB",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "block-cipher",
+          "mode": "ecb",
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 63,
+            "offset": 12,
+            "symbol": "Cipher",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 52,
+            "offset": 20,
+            "symbol": "Cipher.getInstance(\"AES\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "ECB mode reveals patterns in the plaintext; NIST SP 800-131A Rev. 3 (draft) proposes disallowing it for encryption."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "check"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/aes-gcm",
+      "name": "AES-GCM",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "ae",
+          "mode": "gcm",
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 68,
+            "offset": 12,
+            "symbol": "AESGCM",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 57,
+            "offset": 20,
+            "symbol": "Cipher.getInstance(\"AES/GCM/NoPadding\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric cipher; NIST considers AES-128 and larger adequate against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "check"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/dsa-with-sha-1",
+      "name": "DSA with SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 46,
+            "offset": 23,
+            "symbol": "Signature.getInstance(\"SHA1withDSA\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "SHA-1 collisions are practical. NIST disallows SHA-1 for signature generation (SP 800-131A Rev. 2) and is retiring it in all uses by 31 December 2030."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ec-p-256",
+      "name": "EC P-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "unknown",
+          "curve": "P-256",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        },
+        "oid": "1.2.840.10045.2.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 24,
+            "offset": 12,
+            "symbol": "ec.generate_private_key",
+            "additionalContext": "python"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 9,
+            "offset": 21,
+            "symbol": "generateKeyPair('ec')",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ec-p-384",
+      "name": "EC P-384",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "unknown",
+          "curve": "P-384",
+          "classicalSecurityLevel": 192,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        },
+        "oid": "1.2.840.10045.2.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 28,
+            "offset": 32,
+            "symbol": "KeyPairGenerator.getInstance(\"EC\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ecdh-p-256",
+      "name": "ECDH P-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "key-agree",
+          "curve": "P-256",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "web/src/auth.ts",
+            "line": 42,
+            "offset": 50,
+            "symbol": "ecdhCurve: 'P-256'",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Key establishment that a large quantum computer can break (Shor's algorithm). Traffic recorded today can be decrypted later ('harvest now, decrypt later'), so migrate this first."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ecdsa-p-256",
+      "name": "ECDSA P-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "curve": "P-256",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "svc/keys.go",
+            "line": 28,
+            "offset": 13,
+            "symbol": "ecdsa.GenerateKey",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ecdsa-p-256-with-sha-256",
+      "name": "ECDSA P-256 with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "curve": "P-256",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "svc/keys.go",
+            "line": 57,
+            "offset": 14,
+            "symbol": "jwt.SigningMethodES256",
+            "additionalContext": "go"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 31,
+            "offset": 35,
+            "symbol": "algorithm: 'ES256'",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ecdsa-secp256k1",
+      "name": "ECDSA secp256k1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "curve": "secp256k1",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "web/src/auth.ts",
+            "line": 5,
+            "offset": 22,
+            "symbol": "@noble/curves/secp256k1",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ecdsa-with-sha-256",
+      "name": "ECDSA with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 28,
+            "offset": 27,
+            "symbol": "ec.ECDSA",
+            "additionalContext": "python"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ed25519",
+      "name": "Ed25519",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/hmac-md5",
+      "name": "HMAC-MD5",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "tag"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 54,
+            "offset": 12,
+            "symbol": "HMAC.new",
+            "additionalContext": "python"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "HMAC built on MD5: MD5 is not a NIST-approved hash, and RFC 6151 says new protocols should not use HMAC-MD5. Use SHA-256 or stronger."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/hmac-sha-256",
+      "name": "HMAC-SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "tag"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 50,
+            "offset": 12,
+            "symbol": "hmac.new",
+            "additionalContext": "python"
+          },
+          {
+            "location": "api/crypto_utils.py",
+            "line": 88,
+            "offset": 12,
+            "symbol": "jwt.decode",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 69,
+            "offset": 16,
+            "symbol": "Mac.getInstance(\"HmacSHA256\")",
+            "additionalContext": "java"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 41,
+            "offset": 7,
+            "symbol": "hmac.New",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric construction with adequate strength against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/md5",
+      "name": "MD5",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 38,
+            "offset": 12,
+            "symbol": "hashlib.md5",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 73,
+            "offset": 16,
+            "symbol": "MessageDigest.getInstance(\"MD5\")",
+            "additionalContext": "java"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 36,
+            "offset": 43,
+            "symbol": "md5.Sum",
+            "additionalContext": "go"
+          },
+          {
+            "location": "test/test_crypto.py",
+            "line": 5,
+            "offset": 12,
+            "symbol": "hashlib.md5",
+            "additionalContext": "python (test code)"
+          },
+          {
+            "location": "api/crypto_utils.py",
+            "line": 42,
+            "offset": 12,
+            "symbol": "hashlib.md5",
+            "additionalContext": "python"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "MD5 collisions are practical; RFC 6151 says MD5 is no longer acceptable where collision resistance is required, such as digital signatures. It is not a NIST-approved hash."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ml-dsa-65",
+      "name": "ML-DSA-65",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "parameterSetIdentifier": "65",
+          "nistQuantumSecurityLevel": 3,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        },
+        "oid": "2.16.840.1.101.3.4.3.18"
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-safe"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "NIST FIPS 204 (2024) post-quantum signature."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ml-kem-768",
+      "name": "ML-KEM-768",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kem",
+          "parameterSetIdentifier": "768",
+          "nistQuantumSecurityLevel": 3,
+          "cryptoFunctions": [
+            "decapsulate",
+            "encapsulate",
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 35,
+            "offset": 16,
+            "symbol": "KeyPairGenerator.getInstance(\"ML-KEM-768\")",
+            "additionalContext": "java"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 46,
+            "offset": 65,
+            "symbol": "mlkem.GenerateKey768",
+            "additionalContext": "go"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 4,
+            "offset": 10,
+            "symbol": "ml_kem768",
+            "additionalContext": "javascript"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 44,
+            "offset": 19,
+            "symbol": "ml_kem768",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-safe"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "NIST FIPS 203 (2024) post-quantum key encapsulation."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/pbkdf2-sha-1",
+      "name": "PBKDF2-SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kdf",
+          "cryptoFunctions": [
+            "keyderive"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 76,
+            "offset": 12,
+            "symbol": "PBKDF2HMAC",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 77,
+            "offset": 16,
+            "symbol": "SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "retiring"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "PBKDF2 with SHA-1. NIST is retiring SHA-1 in all uses by 31 December 2030 (NIST announcement, December 2022)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/pbkdf2-sha-512",
+      "name": "PBKDF2-SHA-512",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kdf"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "web/src/auth.ts",
+            "line": 14,
+            "offset": 17,
+            "symbol": "pbkdf2",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "ok"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Symmetric construction with adequate strength against quantum attacks."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "check"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-pkcs-1-v1-5",
+      "name": "RSA PKCS#1 v1.5",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "padding": "pkcs1v15",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 64,
+            "offset": 20,
+            "symbol": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Key establishment that a large quantum computer can break (Shor's algorithm). Traffic recorded today can be decrypted later ('harvest now, decrypt later'), so migrate this first."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-1",
+      "name": "RSA PKCS#1 v1.5 with SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "padding": "pkcs1v15",
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "svc/keys.go",
+            "line": 55,
+            "offset": 15,
+            "symbol": "x509.SHA1WithRSA",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "SHA-1 collisions are practical. NIST disallows SHA-1 for signature generation (SP 800-131A Rev. 2) and is retiring it in all uses by 31 December 2030."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-256",
+      "name": "RSA PKCS#1 v1.5 with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "padding": "pkcs1v15",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 84,
+            "offset": 12,
+            "symbol": "jwt.encode",
+            "additionalContext": "python"
+          },
+          {
+            "location": "api/crypto_utils.py",
+            "line": 88,
+            "offset": 12,
+            "symbol": "jwt.decode",
+            "additionalContext": "python"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 39,
+            "offset": 23,
+            "symbol": "Signature.getInstance(\"SHA256withRSA\")",
+            "additionalContext": "java"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 33,
+            "offset": 9,
+            "symbol": "cryptorsa.SignPKCS1v15",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-1024",
+      "name": "RSA-1024",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "unknown",
+          "parameterSetIdentifier": "1024",
+          "classicalSecurityLevel": 80,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        },
+        "oid": "1.2.840.113549.1.1.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "svc/keys.go",
+            "line": 24,
+            "offset": 13,
+            "symbol": "cryptorsa.GenerateKey",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "RSA-1024 gives under 112 bits of security; NIST SP 800-131A disallows it for protecting data."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-1024-pkcs-1-v1-5-with-sha-1",
+      "name": "RSA-1024 PKCS#1 v1.5 with SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "parameterSetIdentifier": "1024",
+          "padding": "pkcs1v15",
+          "classicalSecurityLevel": 80,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        },
+        "oid": "1.2.840.113549.1.1.5"
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "SHA-1 collisions are practical. NIST disallows SHA-1 for signature generation (SP 800-131A Rev. 2) and is retiring it in all uses by 31 December 2030."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-2048",
+      "name": "RSA-2048",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "unknown",
+          "parameterSetIdentifier": "2048",
+          "classicalSecurityLevel": 112,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        },
+        "oid": "1.2.840.113549.1.1.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 20,
+            "offset": 12,
+            "symbol": "rsa.generate_private_key",
+            "additionalContext": "python"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 8,
+            "offset": 44,
+            "symbol": "generateKeyPair('rsa')",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (Deprecated after 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+      "name": "RSA-2048 PKCS#1 v1.5 with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "parameterSetIdentifier": "2048",
+          "padding": "pkcs1v15",
+          "classicalSecurityLevel": 112,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign",
+            "verify"
+          ]
+        },
+        "oid": "1.2.840.113549.1.1.11"
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (Deprecated after 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-3072",
+      "name": "RSA-3072",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "unknown",
+          "parameterSetIdentifier": "3072",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 22,
+            "offset": 32,
+            "symbol": "KeyPairGenerator.getInstance(\"RSA\")",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-4096-oaep-with-sha-256",
+      "name": "RSA-4096-OAEP with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "4096",
+          "padding": "oaep",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "web/src/auth.ts",
+            "line": 36,
+            "offset": 7,
+            "symbol": "{name: 'RSA-OAEP'}",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Key establishment that a large quantum computer can break (Shor's algorithm). Traffic recorded today can be decrypted later ('harvest now, decrypt later'), so migrate this first."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/rsa-oaep-with-sha-256",
+      "name": "RSA-OAEP with SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "padding": "oaep",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "decrypt",
+            "encrypt"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 33,
+            "offset": 17,
+            "symbol": "padding.OAEP",
+            "additionalContext": "python"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Key establishment that a large quantum computer can break (Shor's algorithm). Traffic recorded today can be decrypted later ('harvest now, decrypt later'), so migrate this first."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/sha-1",
+      "name": "SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "classicalSecurityLevel": 80,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 46,
+            "offset": 12,
+            "symbol": "hashlib.sha1",
+            "additionalContext": "python"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 38,
+            "offset": 41,
+            "symbol": "sha1.Sum",
+            "additionalContext": "go"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 18,
+            "offset": 17,
+            "symbol": "createHash('sha1')",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "SHA-1 collisions are practical. NIST disallows SHA-1 for signature generation (SP 800-131A Rev. 2) and is retiring it in all uses by 31 December 2030."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/x25519",
+      "name": "X25519",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "key-agree",
+          "classicalSecurityLevel": 128,
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 80,
+            "offset": 12,
+            "symbol": "X25519PrivateKey.generate",
+            "additionalContext": "python"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 51,
+            "offset": 55,
+            "symbol": "tls.X25519",
+            "additionalContext": "go"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 42,
+            "offset": 50,
+            "symbol": "ecdhCurve: 'X25519'",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Key establishment that a large quantum computer can break (Shor's algorithm). Traffic recorded today can be decrypted later ('harvest now, decrypt later'), so migrate this first."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/x25519mlkem768",
+      "name": "X25519MLKEM768",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kem",
+          "parameterSetIdentifier": "768"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "svc/keys.go",
+            "line": 51,
+            "offset": 35,
+            "symbol": "tls.X25519MLKEM768",
+            "additionalContext": "go"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 42,
+            "offset": 50,
+            "symbol": "ecdhCurve: 'X25519MLKEM768'",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-safe"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Hybrid key exchange that includes ML-KEM, so recorded traffic stays protected even against a future quantum computer."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "check"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/certificate/9396cd177b9b7189",
+      "name": "Example Bank Root CA",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "O=Example Bank Ltd,CN=Example Bank Root CA",
+          "issuerName": "O=Example Bank Ltd,CN=Example Bank Root CA",
+          "notValidBefore": "2026-01-01T00:00:00Z",
+          "notValidAfter": "2036-01-01T00:00:00Z",
+          "certificateFormat": "X.509",
+          "signatureAlgorithmRef": "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+          "subjectPublicKeyRef": "crypto/key/public/eac8f729039117f8",
+          "certificateExtension": "pem"
+        }
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:sha256-fingerprint",
+          "value": "9396cd177b9b71893430c661bbf8a0843125c4c4d26407eb8132173cdc7bf6f2"
+        },
+        {
+          "name": "pqc-kit:serial",
+          "value": "343b5d3c97bf85d544059d900f255323b82d3ba5"
+        },
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (Deprecated after 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/server-chain.pem",
+            "line": 16,
+            "symbol": "X.509 certificate (PEM)",
+            "additionalContext": "pem"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/certificate/33e287b1fda1d3ce",
+      "name": "api.example-bank.test",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "O=Example Bank Ltd,CN=api.example-bank.test",
+          "issuerName": "O=Example Bank Ltd,CN=Example Bank Root CA",
+          "notValidBefore": "2026-01-01T00:00:00Z",
+          "notValidAfter": "2027-01-01T00:00:00Z",
+          "certificateFormat": "X.509",
+          "signatureAlgorithmRef": "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+          "subjectPublicKeyRef": "crypto/key/public/8eb00cab05e36fd9",
+          "certificateExtension": "pem"
+        }
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:sha256-fingerprint",
+          "value": "33e287b1fda1d3ced2bcc6bac09066b0aa412eb0ae73db95857f92daf71f4148"
+        },
+        {
+          "name": "pqc-kit:serial",
+          "value": "0f9ea7b78bdc51358235f06a335f615071159c78"
+        },
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/server-chain.pem",
+            "line": 1,
+            "symbol": "X.509 certificate (PEM)",
+            "additionalContext": "pem"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/certificate/9d888406eef71fb4",
+      "name": "legacy-partner.example-bank.test",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "CN=legacy-partner.example-bank.test",
+          "issuerName": "CN=legacy-partner.example-bank.test",
+          "notValidBefore": "2020-01-01T00:00:00Z",
+          "notValidAfter": "2030-06-30T00:00:00Z",
+          "certificateFormat": "X.509",
+          "signatureAlgorithmRef": "crypto/algorithm/rsa-1024-pkcs-1-v1-5-with-sha-1",
+          "subjectPublicKeyRef": "crypto/key/public/4e2cbae7aa5f1499",
+          "certificateExtension": "crt"
+        }
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:sha256-fingerprint",
+          "value": "9d888406eef71fb41e4d0408af1ae4ed716bce3950e132309388c18202eed542"
+        },
+        {
+          "name": "pqc-kit:serial",
+          "value": "0a0b"
+        },
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "RSA-1024 gives under 112 bits of security; NIST SP 800-131A disallows it for protecting data."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/legacy-partner.crt",
+            "symbol": "X.509 certificate (DER)",
+            "additionalContext": "der"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/certificate/976f1401e3aa11d7",
+      "name": "pq-pilot.example-bank.test",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "CN=pq-pilot.example-bank.test",
+          "issuerName": "CN=pq-pilot.example-bank.test",
+          "notValidBefore": "2026-01-01T00:00:00Z",
+          "notValidAfter": "2045-12-31T00:00:00Z",
+          "certificateFormat": "X.509",
+          "signatureAlgorithmRef": "crypto/algorithm/ml-dsa-65",
+          "subjectPublicKeyRef": "crypto/key/public/dd3bd5e337823c46",
+          "certificateExtension": "pem"
+        }
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:sha256-fingerprint",
+          "value": "976f1401e3aa11d79aeda4486dff6253e4fbfebb0cefc5a3d5ddf6e8ab389a7e"
+        },
+        {
+          "name": "pqc-kit:serial",
+          "value": "012345"
+        },
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-safe"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "NIST FIPS 204 (2024) post-quantum signature."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/pq-pilot-mldsa65.pem",
+            "line": 2,
+            "symbol": "X.509 certificate (PEM)",
+            "additionalContext": "pem"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/protocol/tls-1-0",
+      "name": "TLS 1.0",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls",
+          "version": "1.0"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "api/crypto_utils.py",
+            "line": 93,
+            "offset": 27,
+            "symbol": "ssl.TLSVersion.TLSv1",
+            "additionalContext": "python"
+          },
+          {
+            "location": "web/src/auth.ts",
+            "line": 42,
+            "offset": 29,
+            "symbol": "minVersion: 'TLSv1'",
+            "additionalContext": "javascript"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "TLS 1.0 and 1.1 are deprecated (RFC 8996)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-01-02 (By 2 Jan 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/protocol/tls-1-1",
+      "name": "TLS 1.1",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls",
+          "version": "1.1"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 82,
+            "offset": 16,
+            "symbol": "setEnabledProtocols",
+            "additionalContext": "java"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "TLS 1.0 and 1.1 are deprecated (RFC 8996)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-01-02 (By 2 Jan 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/protocol/tls-1-2",
+      "name": "TLS 1.2",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls",
+          "version": "1.2"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 81,
+            "offset": 26,
+            "symbol": "SSLContext.getInstance(\"TLSv1.2\")",
+            "additionalContext": "java"
+          },
+          {
+            "location": "billing/src/main/java/com/example/billing/PaymentCrypto.java",
+            "line": 82,
+            "offset": 16,
+            "symbol": "setEnabledProtocols",
+            "additionalContext": "java"
+          },
+          {
+            "location": "svc/keys.go",
+            "line": 50,
+            "offset": 21,
+            "symbol": "tls.VersionTLS12",
+            "additionalContext": "go"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "TLS 1.2 has no standard post-quantum key exchange, so its handshake is quantum-vulnerable."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-01-02 (By 2 Jan 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/8eb00cab05e36fd9",
+      "name": "EC P-256 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:8eb00cab05e36fd9d05da3a2beb708edc3021fcb4fa89d8c27ae6e3e95cf9e70",
+          "algorithmRef": "crypto/algorithm/ec-p-256",
+          "format": "X.509 SubjectPublicKeyInfo"
+        },
+        "oid": "1.2.840.10045.2.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/server-chain.pem",
+            "line": 1
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/3037b0da8a97318f",
+      "name": "EC P-384 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:3037b0da8a97318ffdbbc7f0ce6b8ff55d99c5a9d78b9ae0f5c59790b81bb4c2",
+          "algorithmRef": "crypto/algorithm/ec-p-384",
+          "format": "SubjectPublicKeyInfo"
+        },
+        "oid": "1.2.840.10045.2.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/webhook-signing.pub.pem",
+            "line": 1,
+            "symbol": "PEM PUBLIC KEY",
+            "additionalContext": "pem"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/9a50e00fe34397d6",
+      "name": "Ed25519 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:9a50e00fe34397d64fc0afecfb12802148e84defe6ac0ba5ec5574ece9375cf0",
+          "algorithmRef": "crypto/algorithm/ed25519",
+          "format": "SSH"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/authorized_keys",
+            "line": 2,
+            "symbol": "SSH public key (ssh-ed25519)",
+            "additionalContext": "ssh"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Signature algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2031-12-31 (By 31 Dec 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/dd3bd5e337823c46",
+      "name": "ML-DSA-65 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:dd3bd5e337823c46bdea060dd076a6479d0de4c8387cf3a0f372372eecc9e064",
+          "algorithmRef": "crypto/algorithm/ml-dsa-65",
+          "format": "X.509 SubjectPublicKeyInfo"
+        },
+        "oid": "2.16.840.1.101.3.4.3.18"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/pq-pilot-mldsa65.pem",
+            "line": 2
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-safe"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "NIST FIPS 204 (2024) post-quantum signature."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/4e2cbae7aa5f1499",
+      "name": "RSA-1024 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:4e2cbae7aa5f1499eb3c5575181ade3eaeca01826715ef3e213f0e237ec16d16",
+          "algorithmRef": "crypto/algorithm/rsa-1024",
+          "size": 1024,
+          "format": "X.509 SubjectPublicKeyInfo"
+        },
+        "oid": "1.2.840.113549.1.1.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/legacy-partner.crt"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "weak"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "RSA-1024 gives under 112 bits of security; NIST SP 800-131A disallows it for protecting data."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2035-12-31 (Disallowed after 2035)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/90cc2819fd7ae6ce",
+      "name": "RSA-2048 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:90cc2819fd7ae6cec5a638c4f1a1be8112f281b5e2fc880180ad78130cd51258",
+          "algorithmRef": "crypto/algorithm/rsa-2048",
+          "size": 2048,
+          "format": "SSH"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/authorized_keys",
+            "line": 1,
+            "symbol": "SSH public key (ssh-rsa)",
+            "additionalContext": "ssh"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (Deprecated after 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/key/public/eac8f729039117f8",
+      "name": "RSA-2048 public key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "public-key",
+          "id": "sha256:eac8f729039117f89c6087cbcf789aa0b80515a24ad8a7ab33b8e26068ae8546",
+          "algorithmRef": "crypto/algorithm/rsa-2048",
+          "size": 2048,
+          "format": "X.509 SubjectPublicKeyInfo"
+        },
+        "oid": "1.2.840.113549.1.1.1"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "certs/server-chain.pem",
+            "line": 16
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "pqc-kit:status",
+          "value": "quantum-vulnerable"
+        },
+        {
+          "name": "pqc-kit:reason",
+          "value": "Public-key algorithm that a large quantum computer can break (Shor's algorithm)."
+        },
+        {
+          "name": "pqc-kit:cnsa2",
+          "value": "not approved"
+        },
+        {
+          "name": "pqc-kit:deadline:nist",
+          "value": "2030-12-31 (Deprecated after 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:us",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        },
+        {
+          "name": "pqc-kit:deadline:cnsa2",
+          "value": "2026-12-31 (From 1 Jan 2027)"
+        },
+        {
+          "name": "pqc-kit:deadline:ncsc",
+          "value": "2031-12-31 (By 2031)"
+        },
+        {
+          "name": "pqc-kit:deadline:eu",
+          "value": "2030-12-31 (By 31 Dec 2030)"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "root-component",
+      "dependsOn": [
+        "crypto/algorithm/3des-cbc",
+        "crypto/algorithm/aes-256",
+        "crypto/algorithm/aes-256-gcm",
+        "crypto/algorithm/aes-cbc",
+        "crypto/algorithm/aes-ecb",
+        "crypto/algorithm/aes-gcm",
+        "crypto/algorithm/dsa-with-sha-1",
+        "crypto/algorithm/ec-p-256",
+        "crypto/algorithm/ec-p-384",
+        "crypto/algorithm/ecdh-p-256",
+        "crypto/algorithm/ecdsa-p-256",
+        "crypto/algorithm/ecdsa-p-256-with-sha-256",
+        "crypto/algorithm/ecdsa-secp256k1",
+        "crypto/algorithm/ecdsa-with-sha-256",
+        "crypto/algorithm/ed25519",
+        "crypto/algorithm/hmac-md5",
+        "crypto/algorithm/hmac-sha-256",
+        "crypto/algorithm/md5",
+        "crypto/algorithm/ml-dsa-65",
+        "crypto/algorithm/ml-kem-768",
+        "crypto/algorithm/pbkdf2-sha-1",
+        "crypto/algorithm/pbkdf2-sha-512",
+        "crypto/algorithm/rsa-1024",
+        "crypto/algorithm/rsa-1024-pkcs-1-v1-5-with-sha-1",
+        "crypto/algorithm/rsa-2048",
+        "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+        "crypto/algorithm/rsa-3072",
+        "crypto/algorithm/rsa-4096-oaep-with-sha-256",
+        "crypto/algorithm/rsa-oaep-with-sha-256",
+        "crypto/algorithm/rsa-pkcs-1-v1-5",
+        "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-1",
+        "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-256",
+        "crypto/algorithm/sha-1",
+        "crypto/algorithm/x25519",
+        "crypto/algorithm/x25519mlkem768",
+        "crypto/certificate/33e287b1fda1d3ce",
+        "crypto/certificate/9396cd177b9b7189",
+        "crypto/certificate/976f1401e3aa11d7",
+        "crypto/certificate/9d888406eef71fb4",
+        "crypto/key/public/3037b0da8a97318f",
+        "crypto/key/public/4e2cbae7aa5f1499",
+        "crypto/key/public/8eb00cab05e36fd9",
+        "crypto/key/public/90cc2819fd7ae6ce",
+        "crypto/key/public/9a50e00fe34397d6",
+        "crypto/key/public/dd3bd5e337823c46",
+        "crypto/key/public/eac8f729039117f8",
+        "crypto/protocol/tls-1-0",
+        "crypto/protocol/tls-1-1",
+        "crypto/protocol/tls-1-2"
+      ]
+    },
+    {
+      "ref": "crypto/algorithm/3des-cbc",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/aes-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/aes-256-gcm",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/aes-cbc",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/aes-ecb",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/aes-gcm",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/dsa-with-sha-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ec-p-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ec-p-384",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ecdh-p-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ecdsa-p-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ecdsa-p-256-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ecdsa-secp256k1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ecdsa-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ed25519",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/hmac-md5",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/hmac-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/md5",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ml-dsa-65",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/ml-kem-768",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/pbkdf2-sha-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/pbkdf2-sha-512",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-pkcs-1-v1-5",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-pkcs-1-v1-5-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-1024",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-1024-pkcs-1-v1-5-with-sha-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-2048",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-3072",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-4096-oaep-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/rsa-oaep-with-sha-256",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/sha-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/x25519",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/algorithm/x25519mlkem768",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/certificate/9396cd177b9b7189",
+      "dependsOn": [
+        "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+        "crypto/key/public/eac8f729039117f8"
+      ]
+    },
+    {
+      "ref": "crypto/certificate/33e287b1fda1d3ce",
+      "dependsOn": [
+        "crypto/algorithm/rsa-2048-pkcs-1-v1-5-with-sha-256",
+        "crypto/key/public/8eb00cab05e36fd9"
+      ]
+    },
+    {
+      "ref": "crypto/certificate/9d888406eef71fb4",
+      "dependsOn": [
+        "crypto/algorithm/rsa-1024-pkcs-1-v1-5-with-sha-1",
+        "crypto/key/public/4e2cbae7aa5f1499"
+      ]
+    },
+    {
+      "ref": "crypto/certificate/976f1401e3aa11d7",
+      "dependsOn": [
+        "crypto/algorithm/ml-dsa-65",
+        "crypto/key/public/dd3bd5e337823c46"
+      ]
+    },
+    {
+      "ref": "crypto/protocol/tls-1-0",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/protocol/tls-1-1",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/protocol/tls-1-2",
+      "dependsOn": []
+    },
+    {
+      "ref": "crypto/key/public/8eb00cab05e36fd9",
+      "dependsOn": [
+        "crypto/algorithm/ec-p-256"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/3037b0da8a97318f",
+      "dependsOn": [
+        "crypto/algorithm/ec-p-384"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/9a50e00fe34397d6",
+      "dependsOn": [
+        "crypto/algorithm/ed25519"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/dd3bd5e337823c46",
+      "dependsOn": [
+        "crypto/algorithm/ml-dsa-65"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/4e2cbae7aa5f1499",
+      "dependsOn": [
+        "crypto/algorithm/rsa-1024"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/90cc2819fd7ae6ce",
+      "dependsOn": [
+        "crypto/algorithm/rsa-2048"
+      ]
+    },
+    {
+      "ref": "crypto/key/public/eac8f729039117f8",
+      "dependsOn": [
+        "crypto/algorithm/rsa-2048"
+      ]
+    }
+  ]
+}

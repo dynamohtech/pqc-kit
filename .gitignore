@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Outputs when running pqc-kit on this repository itself
+/cbom.cdx.json
+/scan.json
+/scan.md
+/pqc-readiness.md

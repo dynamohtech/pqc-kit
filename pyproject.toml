@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pqc-kit"
+version = "0.1.0"
+description = "Find the cryptography that quantum computers will break, export a CycloneDX CBOM, and map it to the NIST, US federal, NSA CNSA 2.0, UK NCSC and EU migration deadlines."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Emmanuel Adegbaju" }]
+keywords = [
+  "post-quantum", "pqc", "cryptography", "cbom", "cyclonedx", "crypto-inventory",
+  "cnsa-2", "nist", "ml-kem", "ml-dsa", "security", "compliance",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Security :: Cryptography",
+  "Topic :: Software Development :: Quality Assurance",
+]
+# No runtime dependencies on purpose: a security tool should be easy to review
+# and should not drag a large supply chain into your build.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "cryptography>=43", "cyclonedx-python-lib[json-validation]>=8"]
+
+[project.scripts]
+pqc-kit = "pqc_kit.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/dynamohtech/pqc-kit"
+Issues = "https://github.com/dynamohtech/pqc-kit/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--ignore=tests/fixtures"
