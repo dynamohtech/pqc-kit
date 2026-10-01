@@ -5,7 +5,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [0.1.0] - Unreleased
+## [0.1.0] - 2026-10-01
 
 ### Added
 
@@ -22,3 +22,6 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - `pqc-kit assess`: readiness report (Markdown or JSON) mapping findings to NIST IR 8547 (draft), Executive Order
   14412 and OMB M-26-15, NSA CNSA 2.0, the UK NCSC migration timelines and the EU coordinated roadmap, with the
   number of findings each milestone affects, time left, and migration priorities.
+
+[Unreleased]: https://github.com/dynamohtech/pqc-kit/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/dynamohtech/pqc-kit/releases/tag/v0.1.0
